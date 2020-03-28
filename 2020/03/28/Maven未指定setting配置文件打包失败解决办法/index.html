@@ -19,10 +19,11 @@
     <link rel="dns-prefetch" href="http://yoursite.com">
     <!--SEO-->
 
-<meta name="keywords" content="" />
+<meta name="keywords" content="maven" />
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ..." />
+<meta name="description" content="问题描述今天在给一个Maven项目打包的时候遇到了一个奇怪的问题，在Eclipse编译器中能够正常打包，切换到windows系统的cmd控制台使用maven命令一直打包失败，报错信息如下：
+12..." />
 
 
 <meta name="robots" content="all" />
@@ -33,7 +34,7 @@
 
 <title>
     
-    Hello World |
+    Maven未指定setting配置文件打包失败解决办法 |
     
     捉虫记
 </title>
@@ -125,6 +126,11 @@ var _hmt = _hmt || [];
                         </li>
                         
                         <li role="presentation" class="text-center">
+                            <a href="/categories/异常解决/"><i class="fa "></i>
+                                异常解决</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
                             <a href="/archives/"><i class="fa "></i>
                                 时间轴</a>
                         </li>
@@ -142,22 +148,24 @@ var _hmt = _hmt || [];
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Hello World">
+        <h1 id="Maven未指定setting配置文件打包失败解决办法">
             
-            Hello World
+            Maven未指定setting配置文件打包失败解决办法
             
         </h1>
         <div class="post-meta">
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        
+        <a class="category-link" href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/">异常解决</a>
     </span>
     
     
     <span class="fa-wrap">
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/maven/" rel="tag">maven</a>
             
         </span>
     </span>
@@ -177,19 +185,18 @@ var _hmt = _hmt || [];
     </div>
     
     <div class="post-body post-content">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a><strong>问题描述</strong></h3><p>今天在给一个Maven项目打包的时候遇到了一个奇怪的问题，在Eclipse编译器中能够正常打包，切换到windows系统的cmd控制台使用maven命令一直打包失败，报错信息如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">D:\zw_workspace\hivefunction&gt;mvn install</span><br><span class="line">[INFO] Scanning <span class="keyword">for</span> projects...</span><br><span class="line">[INFO]</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Building hivefunction <span class="number">0.0</span><span class="number">.1</span>-SNAPSHOT</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[WARNING] The POM <span class="keyword">for</span> com.imassbank.inf:common-tool:jar:<span class="number">2.0</span><span class="number">.1</span> is missing, no dep</span><br><span class="line">endency information available</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD FAILURE</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time: <span class="number">1.239</span> s</span><br><span class="line">[INFO] Finished at: <span class="number">2020</span>-<span class="number">03</span>-<span class="number">05</span>T14:<span class="number">59</span>:<span class="number">33</span>+<span class="number">08</span>:<span class="number">00</span></span><br><span class="line">[INFO] Final Memory: <span class="number">12</span>M/<span class="number">150</span>M</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[ERROR] Failed to execute goal on project hivefunction: Could not resolve depend</span><br><span class="line">encies <span class="keyword">for</span> project com.imassbank:hivefunction:jar:<span class="number">0.0</span><span class="number">.1</span>-SNAPSHOT: Failure to fin</span><br><span class="line">d com.imassbank.inf:common-tool:jar:<span class="number">2.0</span><span class="number">.1</span> in https:<span class="comment">//repo.maven.apache.org/maven</span></span><br><span class="line"><span class="number">2</span> was cached in the local repository, resolution will not be reattempted until t</span><br><span class="line">he update interval of central has elapsed or updates are forced -&gt; [Help <span class="number">1</span>]</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e swit</span><br><span class="line">ch.</span><br><span class="line">[ERROR] Re-run Maven using the -X <span class="keyword">switch</span> to enable full debug logging.</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please rea</span><br><span class="line">d the following articles:</span><br><span class="line">[ERROR] [Help <span class="number">1</span>] http:<span class="comment">//cwiki.apache.org/confluence/display/MAVEN/DependencyReso</span></span><br><span class="line">lutionException</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a><strong>解决方法</strong></h3><p>仔细分析报错信息发现一直无法解析依赖的common-tool:jar，这个包是公司内部项目打到maven私服上的包。Eclipse编译器中我有配置个maven的setting文件指向公司私服，命令行方式执行因为没有指定配置文件，所以会去公网的maven私服请求，肯定拉不下来这个依赖。命令行下添加–settings参数问题得到解决。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\zw_workspace\hivefunction&gt;mvn clean <span class="keyword">package</span> -U --settings D:\setting\settings</span><br><span class="line">_zw_trade.xml -Dmaven.test.skip=<span class="keyword">true</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+
+
+
 
     </div>
     
@@ -243,7 +250,7 @@ new Valine({
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li></ol>
         
     </div>
 </aside>

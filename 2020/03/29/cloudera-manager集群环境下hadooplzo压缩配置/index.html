@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="捉虫记">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+<meta name="keywords" content="hadoop,lzo,cdh" />
+
+
+<meta name="description" content="hadoop使用lzo压缩的优点
+可以减小数据的大小和数据的磁盘读写时间由于压缩的数据通常只有原始数据的1/4，在HDFS中存储压缩数据，可以使集群能保存更多的数据，延长集群的使用寿命     ..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    cloudera-manager集群环境下hadooplzo压缩配置 |
+    
+    捉虫记
+</title>
+
+<link rel="alternate" href="/atom.xml" title="捉虫记" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?8ddbade2f6f8ec8f42d2bf584fe892ff";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+    
+
+<script>
+(function() {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://snippet.shenliyang.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='GilesLv'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">
+                        捉虫记</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/大数据/"><i class="fa "></i>
+                                大数据</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/异常解决/"><i class="fa "></i>
+                                异常解决</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="cloudera-manager集群环境下hadooplzo压缩配置">
+            
+            cloudera-manager集群环境下hadooplzo压缩配置
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/cdh/" rel="tag">cdh</a> <a class="tag-link" href="/tags/hadoop/" rel="tag">hadoop</a> <a class="tag-link" href="/tags/lzo/" rel="tag">lzo</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/03/29</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h4 id="hadoop使用lzo压缩的优点"><a href="#hadoop使用lzo压缩的优点" class="headerlink" title="hadoop使用lzo压缩的优点"></a><strong>hadoop使用lzo压缩的优点</strong></h4><ol>
+<li>可以减小数据的大小和数据的磁盘读写时间<br>由于压缩的数据通常只有原始数据的1/4，在HDFS中存储压缩数据，可以使集群能保存更多的数据，延长集群的使用寿命      </li>
+<li>即能够被分块，并行的处理，速度也非常的快<br>lzo的压缩文件是由许多的小的blocks组成（约256K），使得hadoop的job可以根据block的划分来splitjob，能够并行处理并且速度非常的快。</li>
+</ol>
+<h4 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a><strong>下载地址</strong></h4><p><a href="http://archive.cloudera.com/gplextras5/parcels/" target="_blank" rel="noopener">http://archive.cloudera.com/gplextras5/parcels/</a>              国内访问不稳定，碰到打不开的情况多刷新几次试试</p>
+<h4 id="版本选择"><a href="#版本选择" class="headerlink" title="版本选择"></a><strong>版本选择</strong></h4><table>
+<thead>
+<tr>
+<th>CDH集群</th>
+<th>GPL Extras 版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5.x.y/</td>
+<td>GPL Extras 5.x.y/</td>
+</tr>
+</tbody></table>
+<p>例如：我的CDH集群版本是： CDH-5.16.2-1.cdh5.16.2.p0.8-el7.parcel  对应选择的GPL Extras 版本 GPLEXTRAS-5.16.2-1.cdh5.16.2.p0.8-el7.parcel，其中el6、el7是操作系统的版本，需要根据自己的系统进行选择</p>
+<h4 id="准备安装文件"><a href="#准备安装文件" class="headerlink" title="准备安装文件"></a><strong>准备安装文件</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GPLEXTRAS-5.16.2-1.cdh5.16.2.p0.8-el7.parcel</span><br><span class="line"></span><br><span class="line">CDH-5.16.2-1.cdh5.16.2.p0.8-el7.parcel.sha1 （使用的时候重命名成.sha）</span><br><span class="line"></span><br><span class="line">manifest.json</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="上传文件至cm共享目录"><a href="#上传文件至cm共享目录" class="headerlink" title="上传文件至cm共享目录"></a><strong>上传文件至cm共享目录</strong></h4><p>因为使用的是parcels安装，首先将下载好的文件放到cloudera-manager共享的目录中，此处为：</p>
+<p><img src="http://qncdn.mantuoluo88.com//blog/upload/image_1579577126810.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[app@zw-p-hadoop-master opt]$ cd &#x2F;opt&#x2F;cloudera&#x2F;parcel-repo&#x2F;  (注：这里要根据自己实际安装路径修改)</span><br><span class="line">[app@zw-p-hadoop-master parcel-repo]$ ll</span><br><span class="line">total 2085300</span><br><span class="line">-rw-r--r-- 1 root root 2132782197 Jun 18  2019 CDH-5.16.2-1.cdh5.16.2.p0.8-el7.parcel</span><br><span class="line">-rw-r--r-- 1 root root         41 Jun 18  2019 CDH-5.16.2-1.cdh5.16.2.p0.8-el7.parcel.sha</span><br><span class="line">-rw-r----- 1 root root      81526 Jan 17 16:38 CDH-5.16.2-1.cdh5.16.2.p0.8-el7.parcel.torrent</span><br><span class="line">-rw-rw-r-- 1 app  app     2450598 Jan 17 22:02 GPLEXTRAS-5.16.2-1.cdh5.16.2.p0.8-el7.parcel</span><br><span class="line">-rw-rw-r-- 1 app  app          41 Jan 17 22:02 GPLEXTRAS-5.16.2-1.cdh5.16.2.p0.8-el7.parcel.sha</span><br><span class="line">-rw-r----- 1 root root        267 Jan 17 22:09 GPLEXTRAS-5.16.2-1.cdh5.16.2.p0.8-el7.parcel.torrent</span><br><span class="line">-rw-rw-r-- 1 app  app       12560 Jan 17 22:02 manifest.json</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="安装激活lzo服务"><a href="#安装激活lzo服务" class="headerlink" title="安装激活lzo服务"></a><strong>安装激活lzo服务</strong></h4><p>进入cm管理界面，选择主机—&gt;Parcel，点击检查新Parcel，如果配置正确将会出现 GPLEXTRAS 对应版本为 5.16.2-1.cdh5.16.2.p0.8。<br>点击分配，耐心等待几分钟后，再点击激活，出现如下图状态，表示 lzo服务安装工作已经完成。</p>
+<p><img src="http://qncdn.mantuoluo88.com//blog/upload/image_1579576332716.png" alt=""></p>
+<p>​    </p>
+<h4 id="配置hadoop支持lzo"><a href="#配置hadoop支持lzo" class="headerlink" title="配置hadoop支持lzo"></a><strong>配置hadoop支持lzo</strong></h4><p><strong>1）修改HDFS配置</strong><br>   在io.compression.codecs属性值中追加如下值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">com.hadoop.compression.lzo.LzoCodec</span><br><span class="line">com.hadoop.compression.lzo.LzopCodec</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qncdn.mantuoluo88.com//blog/upload/image_1579576437843.png" alt=""></p>
+<p><strong>2）修改YARN配置</strong><br>将 mapreduce.application.classpath属性<br>添加一项：/opt/cloudera/parcels/GPLEXTRAS/lib/hadoop/lib/*</p>
+<p><img src="http://qncdn.mantuoluo88.com//blog/upload/image_1579576505960.png" alt=""></p>
+<p><strong>3)修改MR应用程序环境</strong><br>修改mapreduce.admin.user.env属性<br>追加  :/opt/cloudera/parcels/GPLEXTRAS/lib/hadoop/lib/native</p>
+<p><img src="http://qncdn.mantuoluo88.com//blog/upload/image_1579576541919.png" alt=""></p>
+<p>重启集群使配置生效</p>
+<h4 id="配置hive支持lzo"><a href="#配置hive支持lzo" class="headerlink" title="配置hive支持lzo"></a><strong>配置hive支持lzo</strong></h4><p>修改hive辅助jar目录，增加一项：/opt/cloudera/parcels/GPLEXTRAS/lib/hadoop/lib/<br><img src="http://qncdn.mantuoluo88.com//blog/upload/image_1579576615352.png" alt=""></p>
+<p>重启集群使配置生效</p>
+<h4 id="验证是否生效"><a href="#验证是否生效" class="headerlink" title="验证是否生效"></a><strong>验证是否生效</strong></h4><p>sqoop脚本同步数据配置压缩如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#ODS数据导入</span><br><span class="line">import_data() &#123;</span><br><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql:&#x2F;&#x2F;10.1.2.75&#x2F;$1 \</span><br><span class="line">--username test \</span><br><span class="line">--password test \</span><br><span class="line">--target-dir  &#x2F;user&#x2F;hive&#x2F;warehouse&#x2F;ods.db&#x2F;$1&#39;.db&#39;&#x2F;$2 \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--compress \</span><br><span class="line">--compression-codec com.hadoop.compression.lzo.LzopCodec \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--fields-terminated-by &quot;\t&quot; \</span><br><span class="line">--query &quot;$3&quot;&#39; and  $CONDITIONS;&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_product_info()&#123;</span><br><span class="line">        import_data &quot;product&quot; &quot;product_info&quot; &quot;SELECT id, product_code, product_name, version, status, asset_code, product_type, amount_type, amount_expiry, amount_range_upper,</span><br><span class="line">amount_range_lower, payment_method, guarantee_method, agreement_code, interest, grace_period, create_by, create_at, update_by, update_at, auto_lending, product_statistics, account_type,</span><br><span class="line">product_relation, remark, fund_remark, equity_product, extra_type FROM product_info  where 1&#x3D;1&quot;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qncdn.mantuoluo88.com/yanzhenglzo.png" alt=""></p>
+<p>同步的hdfs文件以.lzo结尾，说明我们配置的lzo压缩已经生效了</p>
+<h4 id="参考："><a href="#参考：" class="headerlink" title="参考："></a><strong>参考</strong>：</h4><p>【1】<a href="https://blog.csdn.net/xiaolang85/article/details/8649756" target="_blank" rel="noopener">https://blog.csdn.net/xiaolang85/article/details/8649756</a><br>【2】<a href="https://blog.csdn.net/mcj1314bb/article/details/79043293" target="_blank" rel="noopener">https://blog.csdn.net/mcj1314bb/article/details/79043293</a></p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2020/03/28/Maven%E6%9C%AA%E6%8C%87%E5%AE%9Asetting%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="next-post btn btn-default" title='Maven未指定setting配置文件打包失败解决办法'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Maven未指定setting配置文件打包失败解决办法</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'rugR6oHlIx6QbGbNUU4CMIVs-9Nh9j0Va',
+    appKey: 'sQFRQkjLjffgN1fnpzl4TDN3',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: '昵称,邮箱'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#hadoop使用lzo压缩的优点"><span class="toc-text">hadoop使用lzo压缩的优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载地址"><span class="toc-text">下载地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#版本选择"><span class="toc-text">版本选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#准备安装文件"><span class="toc-text">准备安装文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传文件至cm共享目录"><span class="toc-text">上传文件至cm共享目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装激活lzo服务"><span class="toc-text">安装激活lzo服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置hadoop支持lzo"><span class="toc-text">配置hadoop支持lzo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置hive支持lzo"><span class="toc-text">配置hive支持lzo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证是否生效"><span class="toc-text">验证是否生效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考："><span class="toc-text">参考：</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2019
+                    <a href="//beian.miit.gov.cn/" target="_blank" rel="nofollow">
+                        豫ICP备15008186号-2</a>
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

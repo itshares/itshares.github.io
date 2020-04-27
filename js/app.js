@@ -25,16 +25,6 @@ window.onload = function() {
         }
     })();
 
-    //手机菜单导航
-    $mnav.onclick = function() {
-        var navOpen = $mainMenu.getAttribute("class");
-        if (navOpen.indexOf("in") != '-1') {
-            $mainMenu.setAttribute("class", "collapse navbar-collapse");
-        } else {
-            $mainMenu.setAttribute("class", "collapse navbar-collapse in");
-        }
-    };
-
     //首页文章图片懒加载
     function imgsAjax($targetEles) {
         if (!$targetEles) return;
@@ -73,18 +63,18 @@ window.onload = function() {
         if ($process) {
             $process.style.width = (getScrollTop() / ($body.scrollHeight - window.innerHeight)) * 100 + "%";
         }
-        (isPC && getScrollTop() >= 300) ? $backToTop.removeAttribute("class", "hide"): $backToTop.setAttribute("class", "hide");
+        (isPC && getScrollTop() >= 300) ? $backToTop.removeAttribute("class","hide") : $backToTop.setAttribute("class","hide");
         imgsAjax($ajaxImgs);
     };
     scrollCallback();
 
     //监听滚动事件
     window.addEventListener('scroll', function() {
-        if ($toc) {
+        if($toc){
             var top = $toc.offsetTop;
             var left = $toc.offsetLeft;
             var width = $toc.offsetWidth;
-            if (getScrollTop() <= top) {
+            if(getScrollTop() <= top){
                 $toc.style = "";
             } else {
                 $toc.style.position = "fixed";
@@ -100,17 +90,17 @@ window.onload = function() {
     });
 
     //返回顶部
-    $backToTop.onclick = function() {
-        cancelAnimationFrame(timer);
-        timer = requestAnimationFrame(function fn() {
-            var sTop = getScrollTop();
-            if (sTop > 0) {
-                $body.scrollTop = document.documentElement.scrollTop = sTop - 50;
-                timer = requestAnimationFrame(fn);
-            } else {
-                cancelAnimationFrame(timer);
-            }
-        });
-    };
+	$backToTop.onclick = function() {
+	    cancelAnimationFrame(timer);
+	    timer = requestAnimationFrame(function fn() {
+	        var sTop = getScrollTop();
+	        if (sTop > 0) {
+	            $body.scrollTop = document.documentElement.scrollTop = sTop - 50;
+	            timer = requestAnimationFrame(fn);
+	        } else {
+	            cancelAnimationFrame(timer);
+	        }
+	    });
+	};
 
 };

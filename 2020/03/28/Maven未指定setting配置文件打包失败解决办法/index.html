@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
-
 <head>
     <!--Setting-->
     <meta charset="UTF-8">
@@ -9,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="老吕爱折腾">
+    <meta name="apple-mobile-web-app-capable" content="IT知识分享">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
     <meta name="browsermode" content="application">
@@ -19,11 +18,12 @@
     <link rel="dns-prefetch" href="http://yoursite.com">
     <!--SEO-->
 
-<meta name="keywords" content="maven" />
+    <meta name="keywords" content="maven" />
 
 
-<meta name="description" content="问题描述今天在给一个Maven项目打包的时候遇到了一个奇怪的问题，在Eclipse编译器中能够正常打包，切换到windows系统的cmd控制台使用maven命令一直打包失败，报错信息如下：
-12..." />
+    <meta name="description" content="问题描述今天在给一个Maven项目打包的时候遇到了一个奇怪的问题，在Eclipse编译器中能够正常打包，切换到windows系统的cmd控制台使用maven命令一直打包失败，报错信息如下：
+1234567891011121314151617181920212223242526272829D:\..." />
+
 
 
 <meta name="robots" content="all" />
@@ -32,56 +32,64 @@
 <meta name="verify" content="all" />
     <!--Title-->
 
-<title>
-    
-    Maven未指定setting配置文件打包失败解决办法 |
-    
-    老吕爱折腾
-</title>
 
-<link rel="alternate" href="/atom.xml" title="老吕爱折腾" type="application/atom+xml">
+<title>Maven未指定setting配置文件打包失败解决办法 | IT知识分享</title>
 
 
-<link rel="icon" href="/favicon.ico">
+    <link rel="alternate" href="/atom.xml" title="IT知识分享" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.jpg">
 
     
+
+
 
 
 <link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
-<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0.css">
 <link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
 
-    
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?8ddbade2f6f8ec8f42d2bf584fe892ff";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
 
 
     
 
-<script>
-(function() {
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    } else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?8ddbade2f6f8ec8f42d2bf584fe892ff";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
 
 <meta name="generator" content="Hexo 4.2.0"></head>
+
+
 <!--[if lte IE 8]>
 <style>
     html{ font-size: 1em }
@@ -90,99 +98,156 @@ var _hmt = _hmt || [];
 <!--[if lte IE 9]>
 <div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
 <![endif]-->
+
 <body>
-    <header class="main-header"  style="background-image:url(
-    http://snippet.shenliyang.com/img/banner.jpg)"
-     >
-    <div class="main-header-box">
-        <a class="header-avatar" href="/" title='GilesLv'>
-            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
-        </a>
-        <div class="branding">
-            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
-            
-            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
-            
-        </div>
-    </div>
-</header>
+    
     <nav class="main-navigation">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
-                        <span class="sr-only"></span>
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <a class="navbar-brand" href="http://yoursite.com">
-                        老吕爱折腾</a>
-                </div>
-                <div class="collapse navbar-collapse" id="main-menu">
-                    <ul class="menu">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <nav class="navbar navbar-default" style="background-color:#fff;border:0;margin-bottom:0"
+                     role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#navbar-collapse-1">
+                            <span class="sr-only">切</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="logo" href="/">
+                            <img src="/favicon.jpg"/>IT知识分享
+                        </a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" style="border:0;" id="navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            
+                                
+                                    <li>
+                                        <a href="/" target="_blank">
+                                            <i class="fa "></i>
+                                            首页
+                                        </a>
+                                    </li>
+                                
+                            
+                                
+                                    <li>
+                                        <a href="/categories/大数据/" target="_blank">
+                                            <i class="fa "></i>
+                                            大数据
+                                        </a>
+                                    </li>
+                                
+                            
+                                
+                                    <li>
+                                        <a href="/categories/异常解决/" target="_blank">
+                                            <i class="fa "></i>
+                                            异常解决
+                                        </a>
+                                    </li>
+                                
+                            
+                                
+                                    <li>
+                                        <a href="/archives/" target="_blank">
+                                            <i class="fa "></i>
+                                            时间轴
+                                        </a>
+                                    </li>
+                                
+                            
+                        </ul>
                         
-                        <li role="presentation" class="text-center">
-                            <a href="/"><i class="fa "></i>
-                                首页</a>
-                        </li>
+                            <form id="search-form" class="navbar-form navbar-right">
+                                <div class="form-group input-group">
+                                    <input type="text" id="local-search-input" class="form-control"
+                                           placeholder="搜我..."/>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-default">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div id="local-search-result" class="local-search-result-cls"></div>
+                            </form>
                         
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/大数据/"><i class="fa "></i>
-                                大数据</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/异常解决/"><i class="fa "></i>
-                                异常解决</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/archives/"><i class="fa "></i>
-                                时间轴</a>
-                        </li>
-                        
-                    </ul>
-                </div>
+                    </div>
+                </nav>
             </div>
         </div>
     </div>
 </nav>
+
+    <a href="http://github.com/itshares" target="_blank">
+        <img style="position: absolute; width:100px; top: 0; left: 0; border: 0;"
+             src="/img/fork-me.png"
+             alt="Fork me on GitHub">
+    </a>
+
+
     <section class="content-wrap">
         <div class="container">
             <div class="row">
                 <main class="col-md-8 main-content m-post">
-                    <p id="process"></p>
+                    
+    <div class="ad">
+        <div class="row">
+            
+                <div class="col-md-12">
+                    <a href="" rel="nofollow" target="_blank">
+                        <img class="img-responsive center-block"
+                             src=""
+                             title=""
+                        >
+                    </a>
+                </div>
+            
+        </div>
+    </div>
+
+
+<p id="process"></p>
 <article class="post">
     <div class="post-head">
         <h1 id="Maven未指定setting配置文件打包失败解决办法">
             
-            Maven未指定setting配置文件打包失败解决办法
+                Maven未指定setting配置文件打包失败解决办法
             
         </h1>
         <div class="post-meta">
     
-    <span class="categories-meta fa-wrap">
-        <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/">异常解决</a>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            <a class="tag-link" href="/tags/maven/" rel="tag">maven</a>
-            
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/">异常解决</a>
         </span>
-    </span>
     
+
     
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/maven/" rel="tag">maven</a>
+                
+            </span>
+        </span>
     
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta">
-            2020/03/28</span>
-    </span>
+
     
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/03/28</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
     
 </div>
         
@@ -190,6 +255,17 @@ var _hmt = _hmt || [];
     </div>
     
     <div class="post-body post-content">
+        
+    <div class="toc-article">
+        <strong>
+            目录
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li></ol>
+        </div>
+    </div>
+
+
         <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a><strong>问题描述</strong></h3><p>今天在给一个Maven项目打包的时候遇到了一个奇怪的问题，在Eclipse编译器中能够正常打包，切换到windows系统的cmd控制台使用maven命令一直打包失败，报错信息如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">D:\zw_workspace\hivefunction&gt;mvn install</span><br><span class="line">[INFO] Scanning <span class="keyword">for</span> projects...</span><br><span class="line">[INFO]</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Building hivefunction <span class="number">0.0</span><span class="number">.1</span>-SNAPSHOT</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[WARNING] The POM <span class="keyword">for</span> com.imassbank.inf:common-tool:jar:<span class="number">2.0</span><span class="number">.1</span> is missing, no dep</span><br><span class="line">endency information available</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD FAILURE</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time: <span class="number">1.239</span> s</span><br><span class="line">[INFO] Finished at: <span class="number">2020</span>-<span class="number">03</span>-<span class="number">05</span>T14:<span class="number">59</span>:<span class="number">33</span>+<span class="number">08</span>:<span class="number">00</span></span><br><span class="line">[INFO] Final Memory: <span class="number">12</span>M/<span class="number">150</span>M</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[ERROR] Failed to execute goal on project hivefunction: Could not resolve depend</span><br><span class="line">encies <span class="keyword">for</span> project com.imassbank:hivefunction:jar:<span class="number">0.0</span><span class="number">.1</span>-SNAPSHOT: Failure to fin</span><br><span class="line">d com.imassbank.inf:common-tool:jar:<span class="number">2.0</span><span class="number">.1</span> in https:<span class="comment">//repo.maven.apache.org/maven</span></span><br><span class="line"><span class="number">2</span> was cached in the local repository, resolution will not be reattempted until t</span><br><span class="line">he update interval of central has elapsed or updates are forced -&gt; [Help <span class="number">1</span>]</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e swit</span><br><span class="line">ch.</span><br><span class="line">[ERROR] Re-run Maven using the -X <span class="keyword">switch</span> to enable full debug logging.</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please rea</span><br><span class="line">d the following articles:</span><br><span class="line">[ERROR] [Help <span class="number">1</span>] http:<span class="comment">//cwiki.apache.org/confluence/display/MAVEN/DependencyReso</span></span><br><span class="line">lutionException</span><br></pre></td></tr></table></figure>
 
@@ -203,69 +279,140 @@ var _hmt = _hmt || [];
 
 
 
+        
     </div>
     
     <div class="post-footer">
-        <div>
-            
+        <div class="col-sm-10">
+            <div>
+                <b>本文链接</b>：<a href="/2020/03/28/Maven%E6%9C%AA%E6%8C%87%E5%AE%9Asetting%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" target="_blank">Maven未指定setting配置文件打包失败解决办法</a>
+            </div>
+            <div>
+                
+                    转载声明：本博客由Giles.lv创作，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank"> CC BY 3.0 CN </a> 许可协议。可自由转载、引用，但需署名作者且注明文章出处。如转载至微信公众号，请在文末添加作者公众号二维码。
+                
+            </div>
+            <div>
+                
+            </div>
         </div>
-        <div>
-            
+        <div class="col-sm-2">
+            <img src="/icons/wx.jpg" width=100%/>
         </div>
     </div>
 </article>
+
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2020/03/29/cloudera-manager%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E4%B8%8Bhadooplzo%E5%8E%8B%E7%BC%A9%E9%85%8D%E7%BD%AE/" class="pre-post btn btn-default" title='cloudera-manager集群环境下hadooplzo压缩配置'>
-        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-        <span class="hidden-xs">
-            cloudera-manager集群环境下hadooplzo压缩配置</span>
-    </a>
+        <a target="_blank" href="/2020/03/29/cloudera-manager%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E4%B8%8Bhadooplzo%E5%8E%8B%E7%BC%A9%E9%85%8D%E7%BD%AE/" class="pre-post btn btn-default"
+           title='cloudera-manager集群环境下hadooplzo压缩配置'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">cloudera-manager集群环境下hadooplzo压缩配置</span>
+        </a>
     
     
 </div>
 
-<div id="comments">
-    
 
-<div id="vcomments" class="valine"></div>
+    <div id="comments">
+        
+   <p>评论系统未开启，无法评论！</p>
 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
-
-<script>
-new Valine({
-    av: AV,
-    el: '#vcomments',
-    appId: 'rugR6oHlIx6QbGbNUU4CMIVs-9Nh9j0Va',
-    appKey: 'sQFRQkjLjffgN1fnpzl4TDN3',
-    placeholder: '说点什么吧',
-    notify: false,
-    verify: true,
-    avatar: 'mm',
-    meta: '昵称,邮箱'.split(','),
-    pageSize: '10',
-    path: window.location.pathname,
-    lang: 'zh-CN'.toLowerCase()
-})
-</script>
+    </div>
 
 
-</div>
+
+
+
 
                 </main>
                 
-                    <aside id="article-toc" role="navigation" class="col-md-4">
-    <div class="widget">
-        <h3 class="title">
-            文章目录
-        </h3>
+    <aside class="col-md-4 sidebar">
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li></ol>
+        <div class="widget about-me">
+    <div class="row">
+        <div class="col-md-5">
+            <img src="/img/wx_pub.png" alt="公众号" class="img-responsive center-block">
+        </div>
+        <div class="col-md-7">
+            <a class="series-a" href="javascript:void(0)">公众号</a>
+            <ul>
+                <li>• 技术干货推送</li>
+                <li>• 免费资料领取</li>
+                <li><b>• 扫码领取更多惊喜</b></li>
+            </ul>
+        </div>
+    </div>
+    
+   <!--     <div class="row">
+            <div class="col-md-5">
+                <img src="/img/wx_pub.png" alt="小程序" class="img-responsive">
+            </div>
+            <div class="col-md-7">
+                <a class="series-a" href="javascript:void(0)">小程序</a>
+                <ul>
+                    <li>• 原创笔记</li>
+                    <li>• 独家心法</li>
+                    <li><b>• 扫码领取</b></li>
+                </ul>
+            </div>
+        </div>   !-->
+    
+</div>
+
+
+
+
+        
+        
+
+
+
+        
+        <div class="widget">
+    <div class="row">
+        <div class="col-md-3">
+            <img alt="Spring Cloud" class="img-responsive center-block" src="/img/timeline-clock.gif">
+        </div>
+        <div class="col-md-9">
+            <a class="series-a" target="_blank" href="#">Hexo系列教程</a>
+            <p>零基础小白快速搭建博客教程</p>
+        </div>
+    </div>
+    
+   
+    
+</div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link current" href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/"><i class="fa" aria-hidden="true">异常解决</i></a><span class="category-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        
+            <canvas width="300" height="300" id="tag-cloud-3d">
+                <a href="/tags/cdh/" style="font-size: 10px;">cdh</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/lzo/" style="font-size: 10px;">lzo</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a>
+            </canvas>
         
     </div>
-</aside>
-                
+  </div>
+
+
+        
+        
+
+        
+    </aside>
+
             </div>
         </div>
     </section>
@@ -275,29 +422,42 @@ new Valine({
         </div>
     </div>
 </footer>
+
 <a id="back-to-top" class="icon-btn hide">
-    <i class="fa fa-chevron-up"></i>
+	<i class="fa fa-chevron-up"></i>
 </a>
+
+
+
+
     <div class="copyright">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <div class="busuanzi">
     
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; <strong>Since 2018-12-26</strong>
+    
 </div>
+
             </div>
             <div class="col-sm-12">
-                <span>Copyright &copy;
-                    2019
-                    <a href="//beian.miit.gov.cn/" target="_blank" rel="nofollow">
-                        豫ICP备15008186号-2</a>
-                    
+                <span>Copyright &copy; 2019 <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener">豫ICP备15008186号-2 </a>
                 </span> |
                 <span>
                     Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
                 </span> |
                 <span>
-                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                    Theme by <a href="//github.com/itmuch/hexo-theme-itmuch.git" class="copyright-links" target="_blank" rel="nofollow">ITMuch</a>
                 </span>
             </div>
         </div>
@@ -305,9 +465,55 @@ new Valine({
 </div>
 
 
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<script src="/js/bootstrap-hover-dropdown.min.js"></script>
+
+
+	
+<script src="/js/search.js?rev=@@hash.js"></script>
+
+
+
+
+    
+<script src="/assets/tagcanvas.min.js?rev=2.9.js"></script>
+
+    <script>
+        var tagOption = {
+            textColour: '#29afec', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 
 <script src="/js/app.js?rev=@@hash.js"></script>
+
+
+
 
 </body>
 </html>

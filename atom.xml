@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>老吕爱折腾</title>
+  <title>IT知识分享</title>
   
   <subtitle>专注于大数据领域程序异常解决</subtitle>
   <link href="/atom.xml" rel="self"/>

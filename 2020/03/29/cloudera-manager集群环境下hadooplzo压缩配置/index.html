@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
-
 <head>
     <!--Setting-->
     <meta charset="UTF-8">
@@ -9,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="老吕爱折腾">
+    <meta name="apple-mobile-web-app-capable" content="IT知识分享">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
     <meta name="browsermode" content="application">
@@ -19,11 +18,13 @@
     <link rel="dns-prefetch" href="http://yoursite.com">
     <!--SEO-->
 
-<meta name="keywords" content="hadoop,lzo,cdh" />
+    <meta name="keywords" content="hadoop,lzo,cdh" />
 
 
-<meta name="description" content="hadoop使用lzo压缩的优点
-可以减小数据的大小和数据的磁盘读写时间由于压缩的数据通常只有原始数据的1/4，在HDFS中存储压缩数据，可以使集群能保存更多的数据，延长集群的使用寿命     ..." />
+    <meta name="description" content="hadoop使用lzo压缩的优点
+可以减小数据的大小和数据的磁盘读写时间由于压缩的数据通常只有原始数据的1/4，在HDFS中存储压缩数据，可以使集群能保存更多的数据，延长集群的使用寿命      
+即能够被分块，并行的处理，速度也非常的快lzo的压缩文件是由许多的小的blocks组成（约256..." />
+
 
 
 <meta name="robots" content="all" />
@@ -32,56 +33,64 @@
 <meta name="verify" content="all" />
     <!--Title-->
 
-<title>
-    
-    cloudera-manager集群环境下hadooplzo压缩配置 |
-    
-    老吕爱折腾
-</title>
 
-<link rel="alternate" href="/atom.xml" title="老吕爱折腾" type="application/atom+xml">
+<title>cloudera-manager集群环境下hadooplzo压缩配置 | IT知识分享</title>
 
 
-<link rel="icon" href="/favicon.ico">
+    <link rel="alternate" href="/atom.xml" title="IT知识分享" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.jpg">
 
     
+
+
 
 
 <link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
-<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0.css">
 <link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
 
-    
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?8ddbade2f6f8ec8f42d2bf584fe892ff";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
 
 
     
 
-<script>
-(function() {
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    } else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?8ddbade2f6f8ec8f42d2bf584fe892ff";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
 
 <meta name="generator" content="Hexo 4.2.0"></head>
+
+
 <!--[if lte IE 8]>
 <style>
     html{ font-size: 1em }
@@ -90,99 +99,156 @@ var _hmt = _hmt || [];
 <!--[if lte IE 9]>
 <div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
 <![endif]-->
+
 <body>
-    <header class="main-header"  style="background-image:url(
-    http://snippet.shenliyang.com/img/banner.jpg)"
-     >
-    <div class="main-header-box">
-        <a class="header-avatar" href="/" title='GilesLv'>
-            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
-        </a>
-        <div class="branding">
-            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
-            
-            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
-            
-        </div>
-    </div>
-</header>
+    
     <nav class="main-navigation">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
-                        <span class="sr-only"></span>
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <a class="navbar-brand" href="http://yoursite.com">
-                        老吕爱折腾</a>
-                </div>
-                <div class="collapse navbar-collapse" id="main-menu">
-                    <ul class="menu">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <nav class="navbar navbar-default" style="background-color:#fff;border:0;margin-bottom:0"
+                     role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#navbar-collapse-1">
+                            <span class="sr-only">切</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="logo" href="/">
+                            <img src="/favicon.jpg"/>IT知识分享
+                        </a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" style="border:0;" id="navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            
+                                
+                                    <li>
+                                        <a href="/" target="_blank">
+                                            <i class="fa "></i>
+                                            首页
+                                        </a>
+                                    </li>
+                                
+                            
+                                
+                                    <li>
+                                        <a href="/categories/大数据/" target="_blank">
+                                            <i class="fa "></i>
+                                            大数据
+                                        </a>
+                                    </li>
+                                
+                            
+                                
+                                    <li>
+                                        <a href="/categories/异常解决/" target="_blank">
+                                            <i class="fa "></i>
+                                            异常解决
+                                        </a>
+                                    </li>
+                                
+                            
+                                
+                                    <li>
+                                        <a href="/archives/" target="_blank">
+                                            <i class="fa "></i>
+                                            时间轴
+                                        </a>
+                                    </li>
+                                
+                            
+                        </ul>
                         
-                        <li role="presentation" class="text-center">
-                            <a href="/"><i class="fa "></i>
-                                首页</a>
-                        </li>
+                            <form id="search-form" class="navbar-form navbar-right">
+                                <div class="form-group input-group">
+                                    <input type="text" id="local-search-input" class="form-control"
+                                           placeholder="搜我..."/>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-default">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div id="local-search-result" class="local-search-result-cls"></div>
+                            </form>
                         
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/大数据/"><i class="fa "></i>
-                                大数据</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/异常解决/"><i class="fa "></i>
-                                异常解决</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/archives/"><i class="fa "></i>
-                                时间轴</a>
-                        </li>
-                        
-                    </ul>
-                </div>
+                    </div>
+                </nav>
             </div>
         </div>
     </div>
 </nav>
+
+    <a href="http://github.com/itshares" target="_blank">
+        <img style="position: absolute; width:100px; top: 0; left: 0; border: 0;"
+             src="/img/fork-me.png"
+             alt="Fork me on GitHub">
+    </a>
+
+
     <section class="content-wrap">
         <div class="container">
             <div class="row">
                 <main class="col-md-8 main-content m-post">
-                    <p id="process"></p>
+                    
+    <div class="ad">
+        <div class="row">
+            
+                <div class="col-md-12">
+                    <a href="" rel="nofollow" target="_blank">
+                        <img class="img-responsive center-block"
+                             src=""
+                             title=""
+                        >
+                    </a>
+                </div>
+            
+        </div>
+    </div>
+
+
+<p id="process"></p>
 <article class="post">
     <div class="post-head">
         <h1 id="cloudera-manager集群环境下hadooplzo压缩配置">
             
-            cloudera-manager集群环境下hadooplzo压缩配置
+                cloudera-manager集群环境下hadooplzo压缩配置
             
         </h1>
         <div class="post-meta">
     
-    <span class="categories-meta fa-wrap">
-        <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            <a class="tag-link" href="/tags/cdh/" rel="tag">cdh</a> <a class="tag-link" href="/tags/hadoop/" rel="tag">hadoop</a> <a class="tag-link" href="/tags/lzo/" rel="tag">lzo</a>
-            
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
         </span>
-    </span>
     
+
     
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/cdh/" rel="tag">cdh</a> <a class="tag-link" href="/tags/hadoop/" rel="tag">hadoop</a> <a class="tag-link" href="/tags/lzo/" rel="tag">lzo</a>
+                
+            </span>
+        </span>
     
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta">
-            2020/03/29</span>
-    </span>
+
     
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/03/29</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
     
 </div>
         
@@ -190,6 +256,17 @@ var _hmt = _hmt || [];
     </div>
     
     <div class="post-body post-content">
+        
+    <div class="toc-article">
+        <strong>
+            目录
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#hadoop使用lzo压缩的优点"><span class="toc-text">hadoop使用lzo压缩的优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载地址"><span class="toc-text">下载地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#版本选择"><span class="toc-text">版本选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#准备安装文件"><span class="toc-text">准备安装文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传文件至cm共享目录"><span class="toc-text">上传文件至cm共享目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装激活lzo服务"><span class="toc-text">安装激活lzo服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置hadoop支持lzo"><span class="toc-text">配置hadoop支持lzo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置hive支持lzo"><span class="toc-text">配置hive支持lzo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证是否生效"><span class="toc-text">验证是否生效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考："><span class="toc-text">参考：</span></a></li></ol>
+        </div>
+    </div>
+
+
         <h4 id="hadoop使用lzo压缩的优点"><a href="#hadoop使用lzo压缩的优点" class="headerlink" title="hadoop使用lzo压缩的优点"></a><strong>hadoop使用lzo压缩的优点</strong></h4><ol>
 <li>可以减小数据的大小和数据的磁盘读写时间<br>由于压缩的数据通常只有原始数据的1/4，在HDFS中存储压缩数据，可以使集群能保存更多的数据，延长集群的使用寿命      </li>
 <li>即能够被分块，并行的处理，速度也非常的快<br>lzo的压缩文件是由许多的小的blocks组成（约256K），使得hadoop的job可以根据block的划分来splitjob，能够并行处理并且速度非常的快。</li>
@@ -237,69 +314,140 @@ var _hmt = _hmt || [];
 <p>同步的hdfs文件以.lzo结尾，说明我们配置的lzo压缩已经生效了</p>
 <h4 id="参考："><a href="#参考：" class="headerlink" title="参考："></a><strong>参考</strong>：</h4><p>【1】<a href="https://blog.csdn.net/xiaolang85/article/details/8649756" target="_blank" rel="noopener">https://blog.csdn.net/xiaolang85/article/details/8649756</a><br>【2】<a href="https://blog.csdn.net/mcj1314bb/article/details/79043293" target="_blank" rel="noopener">https://blog.csdn.net/mcj1314bb/article/details/79043293</a></p>
 
+        
     </div>
     
     <div class="post-footer">
-        <div>
-            
+        <div class="col-sm-10">
+            <div>
+                <b>本文链接</b>：<a href="/2020/03/29/cloudera-manager%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E4%B8%8Bhadooplzo%E5%8E%8B%E7%BC%A9%E9%85%8D%E7%BD%AE/" target="_blank">cloudera-manager集群环境下hadooplzo压缩配置</a>
+            </div>
+            <div>
+                
+                    转载声明：本博客由Giles.lv创作，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank"> CC BY 3.0 CN </a> 许可协议。可自由转载、引用，但需署名作者且注明文章出处。如转载至微信公众号，请在文末添加作者公众号二维码。
+                
+            </div>
+            <div>
+                
+            </div>
         </div>
-        <div>
-            
+        <div class="col-sm-2">
+            <img src="/icons/wx.jpg" width=100%/>
         </div>
     </div>
 </article>
+
 <div class="article-nav prev-next-wrap clearfix">
     
     
-    <a href="/2020/03/28/Maven%E6%9C%AA%E6%8C%87%E5%AE%9Asetting%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="next-post btn btn-default" title='Maven未指定setting配置文件打包失败解决办法'>
-        <span class="hidden-lg">下一篇</span>
-        <span class="hidden-xs">
-            Maven未指定setting配置文件打包失败解决办法</span><i class="fa fa-angle-right fa-fw"></i>
-    </a>
+        <a target="_blank" href="/2020/03/28/Maven%E6%9C%AA%E6%8C%87%E5%AE%9Asetting%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="next-post btn btn-default"
+           title='Maven未指定setting配置文件打包失败解决办法'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Maven未指定setting配置文件打包失败解决办法</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
     
 </div>
 
-<div id="comments">
-    
 
-<div id="vcomments" class="valine"></div>
+    <div id="comments">
+        
+   <p>评论系统未开启，无法评论！</p>
 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
-
-<script>
-new Valine({
-    av: AV,
-    el: '#vcomments',
-    appId: 'rugR6oHlIx6QbGbNUU4CMIVs-9Nh9j0Va',
-    appKey: 'sQFRQkjLjffgN1fnpzl4TDN3',
-    placeholder: '说点什么吧',
-    notify: false,
-    verify: true,
-    avatar: 'mm',
-    meta: '昵称,邮箱'.split(','),
-    pageSize: '10',
-    path: window.location.pathname,
-    lang: 'zh-CN'.toLowerCase()
-})
-</script>
+    </div>
 
 
-</div>
+
+
+
 
                 </main>
                 
-                    <aside id="article-toc" role="navigation" class="col-md-4">
-    <div class="widget">
-        <h3 class="title">
-            文章目录
-        </h3>
+    <aside class="col-md-4 sidebar">
         
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#hadoop使用lzo压缩的优点"><span class="toc-text">hadoop使用lzo压缩的优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载地址"><span class="toc-text">下载地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#版本选择"><span class="toc-text">版本选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#准备安装文件"><span class="toc-text">准备安装文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传文件至cm共享目录"><span class="toc-text">上传文件至cm共享目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装激活lzo服务"><span class="toc-text">安装激活lzo服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置hadoop支持lzo"><span class="toc-text">配置hadoop支持lzo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置hive支持lzo"><span class="toc-text">配置hive支持lzo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证是否生效"><span class="toc-text">验证是否生效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考："><span class="toc-text">参考：</span></a></li></ol>
+        <div class="widget about-me">
+    <div class="row">
+        <div class="col-md-5">
+            <img src="/img/wx_pub.png" alt="公众号" class="img-responsive center-block">
+        </div>
+        <div class="col-md-7">
+            <a class="series-a" href="javascript:void(0)">公众号</a>
+            <ul>
+                <li>• 技术干货推送</li>
+                <li>• 免费资料领取</li>
+                <li><b>• 扫码领取更多惊喜</b></li>
+            </ul>
+        </div>
+    </div>
+    
+   <!--     <div class="row">
+            <div class="col-md-5">
+                <img src="/img/wx_pub.png" alt="小程序" class="img-responsive">
+            </div>
+            <div class="col-md-7">
+                <a class="series-a" href="javascript:void(0)">小程序</a>
+                <ul>
+                    <li>• 原创笔记</li>
+                    <li>• 独家心法</li>
+                    <li><b>• 扫码领取</b></li>
+                </ul>
+            </div>
+        </div>   !-->
+    
+</div>
+
+
+
+
+        
+        
+
+
+
+        
+        <div class="widget">
+    <div class="row">
+        <div class="col-md-3">
+            <img alt="Spring Cloud" class="img-responsive center-block" src="/img/timeline-clock.gif">
+        </div>
+        <div class="col-md-9">
+            <a class="series-a" target="_blank" href="#">Hexo系列教程</a>
+            <p>零基础小白快速搭建博客教程</p>
+        </div>
+    </div>
+    
+   
+    
+</div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link current" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3/"><i class="fa" aria-hidden="true">异常解决</i></a><span class="category-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        
+            <canvas width="300" height="300" id="tag-cloud-3d">
+                <a href="/tags/cdh/" style="font-size: 10px;">cdh</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/lzo/" style="font-size: 10px;">lzo</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a>
+            </canvas>
         
     </div>
-</aside>
-                
+  </div>
+
+
+        
+        
+
+        
+    </aside>
+
             </div>
         </div>
     </section>
@@ -309,29 +457,42 @@ new Valine({
         </div>
     </div>
 </footer>
+
 <a id="back-to-top" class="icon-btn hide">
-    <i class="fa fa-chevron-up"></i>
+	<i class="fa fa-chevron-up"></i>
 </a>
+
+
+
+
     <div class="copyright">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <div class="busuanzi">
     
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; <strong>Since 2018-12-26</strong>
+    
 </div>
+
             </div>
             <div class="col-sm-12">
-                <span>Copyright &copy;
-                    2019
-                    <a href="//beian.miit.gov.cn/" target="_blank" rel="nofollow">
-                        豫ICP备15008186号-2</a>
-                    
+                <span>Copyright &copy; 2019 <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener">豫ICP备15008186号-2 </a>
                 </span> |
                 <span>
                     Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
                 </span> |
                 <span>
-                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                    Theme by <a href="//github.com/itmuch/hexo-theme-itmuch.git" class="copyright-links" target="_blank" rel="nofollow">ITMuch</a>
                 </span>
             </div>
         </div>
@@ -339,9 +500,55 @@ new Valine({
 </div>
 
 
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<script src="/js/bootstrap-hover-dropdown.min.js"></script>
+
+
+	
+<script src="/js/search.js?rev=@@hash.js"></script>
+
+
+
+
+    
+<script src="/assets/tagcanvas.min.js?rev=2.9.js"></script>
+
+    <script>
+        var tagOption = {
+            textColour: '#29afec', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 
 <script src="/js/app.js?rev=@@hash.js"></script>
+
+
+
 
 </body>
 </html>
